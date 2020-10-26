@@ -34,7 +34,7 @@ function setLayout(){
 //populate the card title and text with questions
 function setQuestions(){
   var questionEl = document.querySelector(".card-title");
-  questionEl.innerHTML = allQuestions[currentQuestionIndex].question_string;
+  questionEl.innerHTML = allQuestions[currentQuestionIndex].questionString;
 }
 //populate the card body with multiple choice answers
 function setAnswers(){
@@ -55,7 +55,7 @@ function createButtons(){
    //sets data-choice attribute of value of choices array at [i]
    button.setAttribute('data-choice', i);
 
-  
+
     button.addEventListener("click", function(){
     //gets the [i] value of the button that is clicked and stores in variable
     var buttonChoiceNum = this.getAttribute("data-choice");
@@ -69,11 +69,15 @@ function createButtons(){
     timeLeft -= 10;
     }
 
-
+    if (currentQuestionIndex = allQuestions.length){
+      console.log(allQuestions.length);
+      alert("Done");
+      return;
+        } else{
     currentQuestionIndex++;
     setQuestions();
     setAnswers();
-        
+    }
    })
   answerEl.appendChild(button);
   }
@@ -87,23 +91,23 @@ function createButtons(){
 
 //Array with all questions stored
 var allQuestions = [{
-  question_string: "Which of the following function of Number object returns the number's value?",
+  questionString: "Which of the following function of Number object returns the number's value?",
     choicesArray: ["toString()", "toLocaleStrong()", "toPrecision()", "valueOf()"],
     correct: 3,
        }, {
-  question_string: "Which of the following function of String object returns the characters in a string between two indexes into the string?",
+  questionString: "Which of the following function of String object returns the characters in a string between two indexes into the string?",
     choicesArray: ["slice()","substring()", "split()", "substr()"],
     correct: 1,
       }, {
-  question_string: "Which of the following is an advantage of using JavaScript?",
+  questionString: "Which of the following is an advantage of using JavaScript?",
     choicesArray: ["All apply","Immediate feedback to the visitors", "Increased interactvity", "Less server interaction"],
     correct: 0
        }, {
-  question_string: "Can you assign a anonymous function to a variable?",
+  questionString: "Can you assign a anonymous function to a variable?",
     choicesArray: ["True", "False"],
     correct: 0,
         }, {
-  question_string: "Which built-in method calls a function for each element in the array?",
+  questionString: "Which built-in method calls a function for each element in the array?",
     choicesArray: ["While()", "loop()", "forEach()", "None of the above"],
     correct: 2,
         }, {

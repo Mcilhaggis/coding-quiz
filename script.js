@@ -44,15 +44,15 @@ createButtons();
 }
 
 function createButtons(){
-  //finds the text to replace on the webpage
   var answerEl = document.querySelector(".card-text");
-  //sets the indexed questions to a variable
+  //sets the indexed questions as a variable
   var currentQuestionObject = allQuestions[currentQuestionIndex];
   console.log(currentQuestionObject);
   console.log(currentQuestionObject.choicesArray);
   //loops through the length of choices available in the current question, creates and assigns it to a butn
   for (i =0; i < currentQuestionObject.choicesArray.length; i++){
    var button = document.createElement("button");
+   button.className = "btn custom-btn";
    console.log(currentQuestionObject.choicesArray[i]);
    button.textContent = currentQuestionObject.choicesArray[i];
    //sets data-choice attribute of value of choices array at [i]
@@ -74,6 +74,16 @@ function createButtons(){
   answerEl.appendChild(button);
   }
 }
+
+function iterateOnClick(){
+  document.getElementsByClassName("custom-btn").addEventListener("click", () => {
+
+  })
+}
+
+
+
+
 
 //Array with all questions stored
 var allQuestions = [{

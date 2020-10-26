@@ -7,4 +7,11 @@
 .btn.custom-btn{
     background-color: rgb(128, 89, 201);
     color: white;
+    display: block;
+    margin: 5px;
+
+}
+
+.btn:hover{
+    background-color:rgb(213, 201, 233);
 }

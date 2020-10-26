@@ -69,9 +69,9 @@ function createButtons(){
     timeLeft -= 10;
     }
 
-    if (currentQuestionIndex = allQuestions.length){
+    if (currentQuestionIndex === allQuestions.length - 1){
       console.log(allQuestions.length);
-      alert("Done");
+      GameOver();
       return;
         } else{
     currentQuestionIndex++;
@@ -83,8 +83,10 @@ function createButtons(){
   }
 }
 
-
-
+//create fucntion that displays GAME OVER and label area input 
+function GameOver(){
+  questionEl.innerHTML = "Game Over";
+}
 
 
 
@@ -110,5 +112,4 @@ var allQuestions = [{
   questionString: "Which built-in method calls a function for each element in the array?",
     choicesArray: ["While()", "loop()", "forEach()", "None of the above"],
     correct: 2,
-        }, {
-}];
+        }];

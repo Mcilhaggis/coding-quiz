@@ -102,7 +102,6 @@ function createButtons(){
     
 //if the question index is equal to the total number of questions end game, else bering up the next Q
     if (currentQuestionIndex === allQuestions.length - 1){
-      console.log(allQuestions.length);
       gameOverDisplay();
         } else{
     currentQuestionIndex++;
@@ -120,7 +119,6 @@ function gameOverDisplay(){
  finalScore.innerHTML = " " + timeLeft;
  localStorage.setItem("mostRecentScore", timeLeft);//possible score is not the correct word
  console.log(timeLeft);
- console.log(quizTimer);
  document.getElementById("startGameCard").style.display = "none";
  document.getElementById("resultsBox").style.display = "block";
 }

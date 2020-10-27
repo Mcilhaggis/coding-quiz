@@ -88,10 +88,18 @@ function createButtons(){
     //compares the clicked buttons value with the correct answer value and logs appropriately 
     if(buttonChoiceNum == correctChoice){
     console.log("correct!")
+    document.getElementById("rightWrong").innerHTML = "Last answer was right!";
+    setTimeout(function(){
+      document.getElementById("rightWrong").innerHTML = "";}, 1000);
     } else{
     console.log("incorrect");
-    timeLeft -= 10;
+    document.getElementById("rightWrong").innerHTML = "Last answer was wrong!";
+    setTimeout(function(){
+      document.getElementById("rightWrong").innerHTML = "";}, 1000);    timeLeft -= 10;
     }
+
+
+    
 //if the question index is equal to the total number of questions end game, else bering up the next Q
     if (currentQuestionIndex === allQuestions.length - 1){
       console.log(allQuestions.length);
@@ -165,21 +173,9 @@ document.getElementById("viewScoreBoard").addEventListener("click", function(){
 document.getElementById("navHighScore").addEventListener("click", function(){
   console.log("I got clicked");
   document.getElementById("resultsBox").style.display = "none";
-  document.getElementById("navHighScore").style.display = "none";
+  document.getElementById("startGameCard").style.display = "none";
   document.getElementById("highScores").style.display = "block";
 });
-
-
-
-
-
-
-
-
-
-
-
-
 
 //Replay from ScoreBoard view
 var restartGame = document.getElementById("replay").addEventListener("click", function(){

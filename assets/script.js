@@ -103,7 +103,7 @@ function createButtons(){
 //create sounds for correct and incorrect answers given 
     function answerSounds(){
       if(buttonChoiceNum == correctChoice){
-        var soundCorrect = new Audio("/assets/sounds/correct.wav");
+        var soundCorrect = new Audio("assets/sounds/correct.wav");
         soundCorrect.play();
     }  else{
       var soundIncorrect = new Audio("assets/sounds/incorrect.wav");

@@ -15,24 +15,70 @@
   <!--Nav bar-->
     <ul class="nav">
         <li class="nav-item">
-          <a class="nav-link active" href="#">View Highscore</a>
+          <a class="nav-link active" href="#" id="navHighScore">View Highscore</a>
         </li>
         <li class="nav-item ml-auto">
-          <a class="nav-link disabled " href="#" tabindex="-1" aria-disabled="true">Time: <span id="counter">0</span></a>
+          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Time: <span id="counter">0</span></a>
         </li>
       </ul>
-       <!--Start Game Card-->
-        <div class="container">
+
+      <!--Start Game Card -->
+        <div class="container"  id="startGameCard">
             <div class="row m-4">
             <div class="card w-50 text-center mx-auto" style="width: 18rem;">
                 <div class="card-body">
                   <h5 class="card-title">Coding Quiz Challenge</h5>
                   <p class="card-text">Try to answer the coding related questions within the time limit. Keep in mind that every wrong answer takes 5 seconds off your time.</p>
                   <a href="#" class="btn btn-sm custom-btn " id="start" role="button">Start Quiz</a>
+                  <p id="rightWrong" class="text-left font-italic"></p>
                 </div>
               </div>
             </div>
+        </div> 
+
+        <!--Results Box-->
+        <div id="resultsBox">
+          <div class="row">
+          <div class=" card w-50 text-center mx-auto p-4">
+            <div class="completeText">
+              <h5>You have completed the quiz!</h5>
+            </div>
+            <div class="scoreText">
+              <p>Your score is:<span id="printedTotal"> 0</span></p>
+            </div>
+            <form>
+              <p>Enter your initials here:</p>
+              <div class="usernameInput ">
+              <input type="text" name="username " placeholder="username" class="input-text" id="username">
+              <button href="#" class="btn submit-btn btn-sm mb-1" id="saveScoreBtn" role="button" onclick="saveHighScore(event)" disabled>Submit</button>
+            </div>
+            </form>
+              <a href="#" class="btn btn-sm custom-btn mt-3" id="playAgain" role="button">Play Again</a>
+              <a href="#" class="btn btn-sm custom-btn mt-3" id="viewScoreBoard" role="button">View Scoreboard</a>
+
+          </div>
         </div>
+        </div>
+
+            <!--High Score Box-->
+             <div id="highScores">
+               <div class="row">
+               <div class=" card w-50 text-center mx-auto p-4">
+                 <div class="completeText">
+                   <h5>Highscore</h5>
+                 </div>
+                 <div class="finalScore">
+                   <p>Leaderboard:</p>
+                 </div>
+                 <div class="playerInitials">
+                   <ul id="highScoresList"></ul>
+                 </div>
+                 <div class="buttons">
+                   <a href="#" class="btn btn-sm custom-btn mt-3" id="replay" role="button">Replay</a>
+                 </div>
+               </div>
+             </div>
+           </div>
 
 
 

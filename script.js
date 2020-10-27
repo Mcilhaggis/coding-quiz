@@ -1,6 +1,7 @@
 //set global variables 
 var timeLeft = 76;
 var currentQuestionIndex = 0;
+var finalScore = document.querySelector("#printedTotal");
 
 //start the game
 var startbutton = document.getElementById("start").addEventListener("click", () => {
@@ -8,18 +9,41 @@ var startbutton = document.getElementById("start").addEventListener("click", () 
   setLayout();
   setQuestions();
   setAnswers();
-
 });
+
+//Array with all questions stored
+var allQuestions = [{
+  questionString: "Which of the following function of Number object returns the number's value?",
+    choicesArray: ["toString()", "toLocaleStrong()", "toPrecision()", "valueOf()"],
+    correct: 3,
+       }, {
+  questionString: "Which of the following function of String object returns the characters in a string between two indexes into the string?",
+    choicesArray: ["slice()","substring()", "split()", "substr()"],
+    correct: 1,
+      }, {
+  questionString: "Which of the following is an advantage of using JavaScript?",
+    choicesArray: ["All apply","Immediate feedback to the visitors", "Increased interactvity", "Less server interaction"],
+    correct: 0
+       }, {
+  questionString: "Can you assign a anonymous function to a variable?",
+    choicesArray: ["True", "False"],
+    correct: 0,
+        }, {
+  questionString: "Which built-in method calls a function for each element in the array?",
+    choicesArray: ["While()", "loop()", "forEach()", "None of the above"],
+    correct: 2,
+        }];
 
 //Countdown to 0 function
 function countDown(){
 var timer = document.querySelector("#counter");
-  var quizTimer = setInterval(function() {
+  quizTimer = setInterval(function() {
     timeLeft -= 1;
     timer.innerHTML = timeLeft;
 
     if (timeLeft <=0) {
      clearInterval(quizTimer);
+     gameOverDisplay();
    }
   }, 1000);
 }
@@ -64,15 +88,21 @@ function createButtons(){
     //compares the clicked buttons value with the correct answer value and logs appropriately 
     if(buttonChoiceNum == correctChoice){
     console.log("correct!")
+    document.getElementById("rightWrong").innerHTML = "Last answer was right!";
+    setTimeout(function(){
+      document.getElementById("rightWrong").innerHTML = "";}, 1000);
     } else{
     console.log("incorrect");
-    timeLeft -= 10;
+    document.getElementById("rightWrong").innerHTML = "Last answer was wrong!";
+    setTimeout(function(){
+      document.getElementById("rightWrong").innerHTML = "";}, 1000);    timeLeft -= 10;
     }
 
-    if (currentQuestionIndex = allQuestions.length){
-      console.log(allQuestions.length);
-      alert("Done");
-      return;
+
+    
+//if the question index is equal to the total number of questions end game, else bering up the next Q
+    if (currentQuestionIndex === allQuestions.length - 1){
+      gameOverDisplay();
         } else{
     currentQuestionIndex++;
     setQuestions();
@@ -83,32 +113,90 @@ function createButtons(){
   }
 }
 
+//create function that displays GAME OVER and label area input 
+function gameOverDisplay(){
+ clearInterval(quizTimer);
+ finalScore.innerHTML = " " + timeLeft;
+ localStorage.setItem("mostRecentScore", timeLeft);//possible score is not the correct word
+ console.log(timeLeft);
+ document.getElementById("startGameCard").style.display = "none";
+ document.getElementById("resultsBox").style.display = "block";
+}
+
+//Highscore Board
+const username = document.getElementById('username');
+const saveScoreBtn = document.getElementById('saveScoreBtn');
+const mostRecentScore = localStorage.getItem('mostRecentScore');
+const maxHighScores = 5
+
+//gets the highscores from local storage, or if there are none will return an empty array
+const highScores = JSON.parse(localStorage.getItem("highScores")) || [];
+console.log(highScores);
+username.addEventListener('keyup', () => {
+saveScoreBtn.disabled = !username.value; //disable save button until theres content in there
+});
+
+saveHighScore = (e) => {
+  e.preventDefault();// prevents the form from posting to a different page
+  const score = {
+    score: mostRecentScore,
+    name: username.value
+  };
+  highScores.push(score);
+  highScores.sort( (a,b) => b.score - a.score) // if b score is higher than a score place it higher
+  highScores.splice(5); //cut off at index 5, top 5 leaderboard
+  localStorage.setItem("highScores", JSON.stringify(highScores)); //stores scores on refresh from local storage
+};
 
 
+//Populating the highscore Board from local storage into html 
+const highScoreList = document.getElementById('highScoresList');
+const highScoreBoard = JSON.parse(localStorage.getItem('highScores')) || [];
 
+highScoreList.innerHTML =  highScores
+  .map(score => { // map converts the items in the array to covert to new string version of an li
+    return (`<li class="high-score">${score.name} - ${score.score}</li>`);
+})
+.join("");
+console.log(highScores);
 
+//Bring up the Highscore Board from results page
+document.getElementById("viewScoreBoard").addEventListener("click", function(){
+  console.log("I got clicked");
+  document.getElementById("resultsBox").style.display = "none";
+  document.getElementById("highScores").style.display = "block";
+});
 
+//bring up highscore board from top left link click
+document.getElementById("navHighScore").addEventListener("click", function(){
+  console.log("I got clicked");
+  document.getElementById("resultsBox").style.display = "none";
+  document.getElementById("startGameCard").style.display = "none";
+  document.getElementById("highScores").style.display = "block";
+});
 
-//Array with all questions stored
-var allQuestions = [{
-  questionString: "Which of the following function of Number object returns the number's value?",
-    choicesArray: ["toString()", "toLocaleStrong()", "toPrecision()", "valueOf()"],
-    correct: 3,
-       }, {
-  questionString: "Which of the following function of String object returns the characters in a string between two indexes into the string?",
-    choicesArray: ["slice()","substring()", "split()", "substr()"],
-    correct: 1,
-      }, {
-  questionString: "Which of the following is an advantage of using JavaScript?",
-    choicesArray: ["All apply","Immediate feedback to the visitors", "Increased interactvity", "Less server interaction"],
-    correct: 0
-       }, {
-  questionString: "Can you assign a anonymous function to a variable?",
-    choicesArray: ["True", "False"],
-    correct: 0,
-        }, {
-  questionString: "Which built-in method calls a function for each element in the array?",
-    choicesArray: ["While()", "loop()", "forEach()", "None of the above"],
-    correct: 2,
-        }, {
-}];
+//Replay from ScoreBoard view
+var restartGame = document.getElementById("replay").addEventListener("click", function(){
+  console.log("I got clicked");
+  document.getElementById("highScores").style.display = "none";
+  document.getElementById("startGameCard").style.display = "block";
+  timeLeft = 76;
+  currentQuestionIndex = 0;
+  countDown();
+  setLayout();
+  setQuestions();
+  setAnswers();
+});
+
+//Restarts the game from end game screen
+var restartGame = document.getElementById("playAgain").addEventListener("click", function(){
+  console.log("I got clicked");
+  document.getElementById("resultsBox").style.display = "none";
+  document.getElementById("startGameCard").style.display = "block";
+  timeLeft = 76;
+  currentQuestionIndex = 0;
+  countDown();
+  setLayout();
+  setQuestions();
+  setAnswers();
+})

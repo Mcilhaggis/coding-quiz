@@ -117,6 +117,7 @@ function createButtons(){
 function gameOverDisplay(){
  clearInterval(quizTimer);
  finalScore.innerHTML = " " + timeLeft;
+ counter.innerHTML = timeLeft;
  localStorage.setItem("mostRecentScore", timeLeft);//possible score is not the correct word
  console.log(timeLeft);
  document.getElementById("startGameCard").style.display = "none";

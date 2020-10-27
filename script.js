@@ -9,7 +9,6 @@ var startbutton = document.getElementById("start").addEventListener("click", () 
   setLayout();
   setQuestions();
   setAnswers();
-
 });
 
 //Array with all questions stored
@@ -35,7 +34,6 @@ var allQuestions = [{
     correct: 2,
         }];
 
-
 //Countdown to 0 function
 function countDown(){
 var timer = document.querySelector("#counter");
@@ -45,13 +43,10 @@ var timer = document.querySelector("#counter");
 
     if (timeLeft <=0) {
      clearInterval(quizTimer);
+     gameOverDisplay();
    }
   }, 1000);
 }
-
-
-
-
 
 //Start the quiz change card layout to desired question layout
 function setLayout(){
@@ -97,7 +92,7 @@ function createButtons(){
     console.log("incorrect");
     timeLeft -= 10;
     }
-
+//if the question index is equal to the total number of questions end game, else bering up the next Q
     if (currentQuestionIndex === allQuestions.length - 1){
       console.log(allQuestions.length);
       gameOverDisplay();
@@ -111,10 +106,6 @@ function createButtons(){
   }
 }
 
-
-
-
-
 //create function that displays GAME OVER and label area input 
 function gameOverDisplay(){
  clearInterval(quizTimer);
@@ -125,7 +116,6 @@ function gameOverDisplay(){
  document.getElementById("startGameCard").style.display = "none";
  document.getElementById("resultsBox").style.display = "block";
 }
-
 
 //Highscore Board
 const username = document.getElementById('username');
@@ -153,7 +143,6 @@ saveHighScore = (e) => {
 };
 
 
-
 //Populating the highscore Board from local storage into html 
 const highScoreList = document.getElementById('highScoresList');
 const highScoreBoard = JSON.parse(localStorage.getItem('highScores')) || [];
@@ -165,23 +154,47 @@ highScoreList.innerHTML =  highScores
 .join("");
 console.log(highScores);
 
-
-//Bring up the Highscore Board
-var restartGame = document.getElementById("viewScoreBoard").addEventListener("click", function(){
+//Bring up the Highscore Board from results page
+document.getElementById("viewScoreBoard").addEventListener("click", function(){
   console.log("I got clicked");
   document.getElementById("resultsBox").style.display = "none";
   document.getElementById("highScores").style.display = "block";
 });
+
+//bring up highscore board from top left link click
+document.getElementById("navHighScore").addEventListener("click", function(){
+  console.log("I got clicked");
+  document.getElementById("resultsBox").style.display = "none";
+  document.getElementById("navHighScore").style.display = "none";
+  document.getElementById("highScores").style.display = "block";
+});
+
+
+
+
+
+
+
+
+
+
+
+
 
 //Replay from ScoreBoard view
 var restartGame = document.getElementById("replay").addEventListener("click", function(){
   console.log("I got clicked");
   document.getElementById("highScores").style.display = "none";
   document.getElementById("startGameCard").style.display = "block";
+  timeLeft = 76;
+  currentQuestionIndex = 0;
+  countDown();
+  setLayout();
+  setQuestions();
+  setAnswers();
 });
 
-
-//Restarts the game
+//Restarts the game from end game screen
 var restartGame = document.getElementById("playAgain").addEventListener("click", function(){
   console.log("I got clicked");
   document.getElementById("resultsBox").style.display = "none";
@@ -192,5 +205,4 @@ var restartGame = document.getElementById("playAgain").addEventListener("click",
   setLayout();
   setQuestions();
   setAnswers();
-  
 })

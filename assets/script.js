@@ -87,16 +87,29 @@ function createButtons(){
     var correctChoice = currentQuestionObject.correct;
     //compares the clicked buttons value with the correct answer value and logs appropriately 
     if(buttonChoiceNum == correctChoice){
+      answerSounds();
     console.log("correct!")
     document.getElementById("rightWrong").innerHTML = "Last answer was right!";
     setTimeout(function(){
       document.getElementById("rightWrong").innerHTML = "";}, 1000);
     } else{
+      answerSounds();
     console.log("incorrect");
     document.getElementById("rightWrong").innerHTML = "Last answer was wrong!";
     setTimeout(function(){
       document.getElementById("rightWrong").innerHTML = "";}, 1000);    timeLeft -= 10;
     }
+
+//create sounds for correct and incorrect answers given 
+    function answerSounds(){
+      if(buttonChoiceNum == correctChoice){
+        var soundCorrect = new Audio("/assets/sounds/correct.wav");
+        soundCorrect.play();
+    }  else{
+      var soundIncorrect = new Audio("assets/sounds/incorrect.wav");
+        soundIncorrect.play();
+    }
+  }
 
 
     
@@ -132,7 +145,6 @@ const maxHighScores = 5
 
 //gets the highscores from local storage, or if there are none will return an empty array
 const highScores = JSON.parse(localStorage.getItem("highScores")) || [];
-console.log(highScores);
 username.addEventListener('keyup', () => {
 saveScoreBtn.disabled = !username.value; //disable save button until theres content in there
 });
@@ -147,12 +159,17 @@ saveHighScore = (e) => {
   highScores.sort( (a,b) => b.score - a.score) // if b score is higher than a score place it higher
   highScores.splice(5); //cut off at index 5, top 5 leaderboard
   localStorage.setItem("highScores", JSON.stringify(highScores)); //stores scores on refresh from local storage
+  console.log(highScores);
 };
+
+//When populating the scoreboard, the list items don't populate there unless I refresh the entire page. 
+//I want that to happen after the submit button is pressed, I need to resubmit the new array but I can't figure out how
 
 
 //Populating the highscore Board from local storage into html 
 const highScoreList = document.getElementById('highScoresList');
 const highScoreBoard = JSON.parse(localStorage.getItem('highScores')) || [];
+
 
 highScoreList.innerHTML =  highScores
   .map(score => { // map converts the items in the array to covert to new string version of an li
@@ -160,6 +177,13 @@ highScoreList.innerHTML =  highScores
 })
 .join("");
 console.log(highScores);
+
+
+
+
+
+
+
 
 //Bring up the Highscore Board from results page
 document.getElementById("viewScoreBoard").addEventListener("click", function(){

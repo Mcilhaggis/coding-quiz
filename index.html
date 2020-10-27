@@ -48,30 +48,33 @@
             </div>
             <form>
               <p>Enter your initials here:</p>
-              <input type="text" name="username" placeholder="username" class="input-text" id="username">
-              <button href="#" class="btn custom-btn btn-sm mt-3" id="saveScoreBtn" role="button" onclick="saveHighScore(event)" disabled>Submit</button>
+              <div class="usernameInput ">
+              <input type="text" name="username " placeholder="username" class="input-text" id="username">
+              <button href="#" class="btn submit-btn btn-sm mb-1" id="saveScoreBtn" role="button" onclick="saveHighScore(event)" disabled>Submit</button>
+            </div>
             </form>
               <a href="#" class="btn btn-sm custom-btn mt-3" id="playAgain" role="button">Play Again</a>
+              <a href="#" class="btn btn-sm custom-btn mt-3" id="viewScoreBoard" role="button">View Scoreboard</a>
+
           </div>
         </div>
         </div>
 
-            <!--Score Box-->
-             <div id="scoreBox">
+            <!--High Score Box-->
+             <div id="highScores">
                <div class="row">
                <div class=" card w-50 text-center mx-auto p-4">
                  <div class="completeText">
                    <h5>Highscore</h5>
                  </div>
-                 <div class="scoreText">
+                 <div class="finalScore">
                    <p>Leaderboard:</p>
                  </div>
                  <div class="playerInitials">
-                   <p>list here with score and initals</p>
-                   <input type="text" class="input-text">
+                   <ul id="highScoresList"></ul>
                  </div>
                  <div class="buttons">
-                   <a href="#" class="btn btn-sm custom-btn mt-3" id="start" role="button">Submit</a>
+                   <a href="#" class="btn btn-sm custom-btn mt-3" id="replay" role="button">Replay</a>
                  </div>
                </div>
              </div>

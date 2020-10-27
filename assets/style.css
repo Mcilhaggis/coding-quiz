@@ -13,6 +13,25 @@
     background-color:rgb(213, 201, 233);
 }
 
-#resultsBox{
+.btn.submit-btn{
+    background-color: rgb(128, 89, 201);
+    color: white;
+    box-shadow: 1px black;
+}
+
+#resultsBox,
+#highScores {
     display: none;
 }
+
+#highScoreList {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 4rem;
+
+}
+
+.high-score{
+    font-size: 1.2rem;
+}
+

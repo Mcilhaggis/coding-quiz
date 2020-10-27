@@ -115,7 +115,7 @@ function createButtons(){
 
 
 
-        //create function that displays GAME OVER and label area input 
+//create function that displays GAME OVER and label area input 
 function gameOverDisplay(){
  clearInterval(quizTimer);
  finalScore.innerHTML = " " + timeLeft;
@@ -126,47 +126,71 @@ function gameOverDisplay(){
  document.getElementById("resultsBox").style.display = "block";
 }
 
+
 //Highscore Board
 const username = document.getElementById('username');
 const saveScoreBtn = document.getElementById('saveScoreBtn');
 const mostRecentScore = localStorage.getItem('mostRecentScore');
 const maxHighScores = 5
 
-//gets the highscores, or if there are none will return an empty array
+//gets the highscores from local storage, or if there are none will return an empty array
 const highScores = JSON.parse(localStorage.getItem("highScores")) || [];
 console.log(highScores);
-
 username.addEventListener('keyup', () => {
 saveScoreBtn.disabled = !username.value; //disable save button until theres content in there
 });
 
 saveHighScore = (e) => {
   e.preventDefault();// prevents the form from posting to a different page
-
   const score = {
     score: mostRecentScore,
     name: username.value
   };
   highScores.push(score);
-
   highScores.sort( (a,b) => b.score - a.score) // if b score is higher than a score place it higher
-
   highScores.splice(5); //cut off at index 5, top 5 leaderboard
-  
   localStorage.setItem("highScores", JSON.stringify(highScores)); //stores scores on refresh from local storage
 };
 
-//Restarts the gamegit
-  var restartGame = document.getElementById("playAgain").addEventListener("click", function(){
-    console.log("I got clicked");
-    document.getElementById("resultsBox").style.display = "none";
-    document.getElementById("startGameCard").style.display = "block";
-    timeLeft = 76;
-    currentQuestionIndex = 0;
-    countDown();
-    setLayout();
-    setQuestions();
-    setAnswers();
-    
-  })
 
+
+//Populating the highscore Board from local storage into html 
+const highScoreList = document.getElementById('highScoresList');
+const highScoreBoard = JSON.parse(localStorage.getItem('highScores')) || [];
+
+highScoreList.innerHTML =  highScores
+  .map(score => { // map converts the items in the array to covert to new string version of an li
+    return (`<li class="high-score">${score.name} - ${score.score}</li>`);
+})
+.join("");
+console.log(highScores);
+
+
+//Bring up the Highscore Board
+var restartGame = document.getElementById("viewScoreBoard").addEventListener("click", function(){
+  console.log("I got clicked");
+  document.getElementById("resultsBox").style.display = "none";
+  document.getElementById("highScores").style.display = "block";
+});
+
+//Replay from ScoreBoard view
+var restartGame = document.getElementById("replay").addEventListener("click", function(){
+  console.log("I got clicked");
+  document.getElementById("highScores").style.display = "none";
+  document.getElementById("startGameCard").style.display = "block";
+});
+
+
+//Restarts the game
+var restartGame = document.getElementById("playAgain").addEventListener("click", function(){
+  console.log("I got clicked");
+  document.getElementById("resultsBox").style.display = "none";
+  document.getElementById("startGameCard").style.display = "block";
+  timeLeft = 76;
+  currentQuestionIndex = 0;
+  countDown();
+  setLayout();
+  setQuestions();
+  setAnswers();
+  
+})

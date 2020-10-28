@@ -131,7 +131,7 @@ function gameOverDisplay(){
  clearInterval(quizTimer);
  finalScore.innerHTML = " " + timeLeft;
  counter.innerHTML = timeLeft;
- localStorage.setItem("mostRecentScore", timeLeft);//possible score is not the correct word
+ localStorage.setItem("mostRecentScore", timeLeft);
  console.log(timeLeft);
  document.getElementById("startGameCard").style.display = "none";
  document.getElementById("resultsBox").style.display = "block";
@@ -140,7 +140,6 @@ function gameOverDisplay(){
 //Highscore Board
 const username = document.getElementById('username');
 const saveScoreBtn = document.getElementById('saveScoreBtn');
-const mostRecentScore = localStorage.getItem('mostRecentScore');
 const maxHighScores = 5;
 
 //gets the highscores from local storage, or if there are none will return an empty array
@@ -149,14 +148,15 @@ username.addEventListener('keyup', () => {
 saveScoreBtn.disabled = !username.value; //disable save button until theres content in there
 });
 
-saveScoreBtn.addEventListener("click", function(){ })
-
+//saving the highscore to storage - onclick event on savescorebtn HTML
 saveHighScore = (e) => {
+  const mostRecentScore = localStorage.getItem('mostRecentScore');
   e.preventDefault();// prevents the form from posting to a different page
   const score = {
     score: mostRecentScore,
-    name: username.value,
+    name: username.value
   };
+  console.log(score);
   highScores.push(score);
   highScores.sort( (a,b) => b.score - a.score) // if b score is higher than a score place it higher
   highScores.splice(5); //cut off at index 5, top 5 leaderboard
@@ -174,8 +174,8 @@ document.getElementById("viewScoreBoard").addEventListener("click", function(){
   console.log("I got clicked");
   document.getElementById("resultsBox").style.display = "none";
   document.getElementById("highScores").style.display = "block";
-  highScoreList.innerHTML =  highScores
-.map(score => { // map converts the items in the array to covert to new string version of an li
+
+  highScoreList.innerHTML =  highScores.map(score => { // map converts the items in the array to covert to new string version of an li
   return (`<li class="high-score">${score.name} - ${score.score}</li>`);
 })
 .join("");

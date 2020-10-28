@@ -163,7 +163,8 @@ saveHighScore = (e) => {
 };
 
 //When populating the scoreboard, the list items don't populate there unless I refresh the entire page. 
-//I want that to happen after the submit button is pressed, I need to resubmit the new array but I can't figure out how
+//I want that to happen after the submit button is pressed, I need to resubmit the new array but I can't 
+//figure out how
 
 
 //Populating the highscore Board from local storage into html 
@@ -171,25 +172,16 @@ const highScoreList = document.getElementById('highScoresList');
 const highScoreBoard = JSON.parse(localStorage.getItem('highScores')) || [];
 
 
-highScoreList.innerHTML =  highScores
-  .map(score => { // map converts the items in the array to covert to new string version of an li
-    return (`<li class="high-score">${score.name} - ${score.score}</li>`);
-})
-.join("");
-console.log(highScores);
-
-
-
-
-
-
-
-
 //Bring up the Highscore Board from results page
 document.getElementById("viewScoreBoard").addEventListener("click", function(){
   console.log("I got clicked");
   document.getElementById("resultsBox").style.display = "none";
   document.getElementById("highScores").style.display = "block";
+  highScoreList.innerHTML =  highScores
+  .map(score => { // map converts the items in the array to covert to new string version of an li
+    return (`<li class="high-score">${score.name} - ${score.score}</li>`);
+})
+.join("");
 });
 
 //bring up highscore board from top left link click
@@ -200,7 +192,7 @@ document.getElementById("navHighScore").addEventListener("click", function(){
   document.getElementById("highScores").style.display = "block";
 });
 
-//Replay from ScoreBoard view
+//Replay game from ScoreBoard view
 var restartGame = document.getElementById("replay").addEventListener("click", function(){
   console.log("I got clicked");
   document.getElementById("highScores").style.display = "none";

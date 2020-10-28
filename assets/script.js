@@ -156,18 +156,15 @@ saveHighScore = (e) => {
     score: mostRecentScore,
     name: username.value
   };
-  console.log(score);
   highScores.push(score);
   highScores.sort( (a,b) => b.score - a.score) // if b score is higher than a score place it higher
   highScores.splice(5); //cut off at index 5, top 5 leaderboard
   localStorage.setItem("highScores", JSON.stringify(highScores)); //stores scores on refresh from local storage
-  console.log(highScores);
 };
 
 //Populating the highscore Board from local storage into html 
 const highScoreList = document.getElementById('highScoresList');
 const highScoreBoard = JSON.parse(localStorage.getItem('highScores')) || [];
-console.log(highScoreBoard);
 
 //Bring up the Highscore Board from results page
 document.getElementById("viewScoreBoard").addEventListener("click", function(){

@@ -141,7 +141,7 @@ function gameOverDisplay(){
 const username = document.getElementById('username');
 const saveScoreBtn = document.getElementById('saveScoreBtn');
 const mostRecentScore = localStorage.getItem('mostRecentScore');
-const maxHighScores = 5
+const maxHighScores = 5;
 
 //gets the highscores from local storage, or if there are none will return an empty array
 const highScores = JSON.parse(localStorage.getItem("highScores")) || [];
@@ -149,11 +149,13 @@ username.addEventListener('keyup', () => {
 saveScoreBtn.disabled = !username.value; //disable save button until theres content in there
 });
 
+saveScoreBtn.addEventListener("click", function(){ })
+
 saveHighScore = (e) => {
   e.preventDefault();// prevents the form from posting to a different page
   const score = {
     score: mostRecentScore,
-    name: username.value
+    name: username.value,
   };
   highScores.push(score);
   highScores.sort( (a,b) => b.score - a.score) // if b score is higher than a score place it higher
@@ -162,26 +164,21 @@ saveHighScore = (e) => {
   console.log(highScores);
 };
 
-//When populating the scoreboard, the list items don't populate there unless I refresh the entire page. 
-//I want that to happen after the submit button is pressed, I need to resubmit the new array but I can't 
-//figure out how
-
-
 //Populating the highscore Board from local storage into html 
 const highScoreList = document.getElementById('highScoresList');
 const highScoreBoard = JSON.parse(localStorage.getItem('highScores')) || [];
 console.log(highScoreBoard);
-highScoreList.innerHTML =  highScores
-.map(score => { // map converts the items in the array to covert to new string version of an li
-  return (`<li class="high-score">${score.name} - ${score.score}</li>`);
-})
-.join("");
 
 //Bring up the Highscore Board from results page
 document.getElementById("viewScoreBoard").addEventListener("click", function(){
   console.log("I got clicked");
   document.getElementById("resultsBox").style.display = "none";
   document.getElementById("highScores").style.display = "block";
+  highScoreList.innerHTML =  highScores
+.map(score => { // map converts the items in the array to covert to new string version of an li
+  return (`<li class="high-score">${score.name} - ${score.score}</li>`);
+})
+.join("");
 });
 
 //bring up highscore board from top left link click

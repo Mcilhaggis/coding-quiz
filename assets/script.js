@@ -170,18 +170,18 @@ saveHighScore = (e) => {
 //Populating the highscore Board from local storage into html 
 const highScoreList = document.getElementById('highScoresList');
 const highScoreBoard = JSON.parse(localStorage.getItem('highScores')) || [];
-
+console.log(highScoreBoard);
+highScoreList.innerHTML =  highScores
+.map(score => { // map converts the items in the array to covert to new string version of an li
+  return (`<li class="high-score">${score.name} - ${score.score}</li>`);
+})
+.join("");
 
 //Bring up the Highscore Board from results page
 document.getElementById("viewScoreBoard").addEventListener("click", function(){
   console.log("I got clicked");
   document.getElementById("resultsBox").style.display = "none";
   document.getElementById("highScores").style.display = "block";
-  highScoreList.innerHTML =  highScores
-  .map(score => { // map converts the items in the array to covert to new string version of an li
-    return (`<li class="high-score">${score.name} - ${score.score}</li>`);
-})
-.join("");
 });
 
 //bring up highscore board from top left link click

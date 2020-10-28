@@ -15,9 +15,9 @@ This interactive quiz was built using **HTML, Bootstrap framework, and Javascrip
 
 ### Screenshots
 #### Recorded Gif of the Application in Action
-![Screenshot of Quiz Starting Page.](/assets/images/screenshot1.png "Screenshot of Quiz Starting Page")
-![Screenshot of Quiz in process.](/assets/images/screenshot2.png "Screenshot of Quiz in process."")
-![Screenshot of Quiz end of game.](/assets/images/screenshot3.png "Screenshot of Quiz end of game")
+![Screenshot of Quiz Starting Page.](/assets/images/screenshot1.png "Screenshot of Quiz Starting Page.")
+![Screenshot of Quiz in process.](/assets/images/screenshot2.png "Screenshot of Quiz in process.")
+![Screenshot of Quiz end of game.](/assets/images/screenshot3.png "Screenshot of Quiz end of game.")
 
 
 ## URL
